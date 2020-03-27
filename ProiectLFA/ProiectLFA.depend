@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1585344776 source:d:\ionut\documents\chestii anormale\proiectlfa\main.cpp
+	<bits/stdc++.h>
+	<queue>
+	<vector>
+	<unordered_map>
+	<cstring>
+
