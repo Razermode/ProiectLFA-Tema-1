@@ -132,6 +132,7 @@ int main ()
 
     fin >> n >> m >> k;
     inapoi = vector <vector <int>> (n+5);
+    accesibil = vector <int> (n+5);
     fin >> q0;
     for(int i = 0; i < k; i++)
     {
@@ -156,12 +157,11 @@ int main ()
             fout << 0 << '\n';
     }
     /*
-        Folosim vectorul de accesibil si de backwards deoarece, in caz ca avem noduri care cicleaza (exemplu o muchie (3,3), iar 3 nu e nod final) programul va cicla
-        de aceeea are sens sa parcurgem doar nodurile in care putem ajunge eventual intr-o stare finala, lucru pe care il vom determina cu un bts cu o "coada" (vectorul vizitari)
+        Folosim vectorul de accesibil si inapoi deoarece, in caz ca avem noduri care cicleaza (exemplu o muchie (3,3), iar 3 nu e nod final) programul va cicla
+        de aceeea are sens sa parcurgem doar nodurile in care putem ajunge eventual intr-o stare finala, lucru pe care il vom determina cu un bfs, mergand inapoi de la starile finale la cea initiala
+        si punand toate drumurile (toti vecinii posibili) in vectorul vizitari.
     */
 
-    accesibil = vector <int> ((n+5),0);
-    accesibil[0] = 0;
     for(int i = 1; i <= n; ++i)
     {
         if (F[i])
@@ -172,16 +172,12 @@ int main ()
         else
             accesibil[i] = 0;
     }
-    for(int i = 0; i < vizitari.size(); ++i){
-        int chestie = vizitari[i];
-        for(auto j : inapoi[chestie])
+    for(int i = 0; i < vizitari.size(); ++i)
+        for(auto j : inapoi[vizitari[i]])
             if(!accesibil[j])
             {
                 accesibil[j] = 1;
                 vizitari.push_back(j);
             }
-    }
-
-
     solve_prob();
 }
